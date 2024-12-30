@@ -1,0 +1,116 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Task API",
+      "version": "1.0.0",
+      "description": "API para gestionar tareas"
+    },
+    "paths": {
+      "/api/task": {
+        "post": {
+          "summary": "Crear una tarea",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          ],
+          "responses": {
+            "201": { "description": "Tarea creada" }
+          }
+        },
+        "get": {
+          "summary": "Obtener lista de tareas",
+          "responses": {
+            "200": { "description": "Lista de tareas" }
+          }
+        }
+      },
+      "/api/task/{id}": {
+        "get": {
+          "summary": "Obtener una tarea específica",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": { "description": "Tarea encontrada" },
+            "404": { "description": "Tarea no encontrada" }
+          }
+        },
+        "put": {
+          "summary": "Actualizar una tarea",
+          "description": "Actualiza una tarea existente",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "Descripcion de la tarea",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "description": "Los datos para actualizar la tarea",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "El título de la tarea"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "La descripción de la tarea"
+                  },
+                  "completed": {
+                    "type": "boolean",
+                    "description": "Estado de la tarea, si está completada o no"
+                  }
+                },
+                "required": ["title", "description", "completed"]
+              }
+            }
+          ],
+          "responses": {
+            "200": { "description": "Tarea actualizada" }
+          }
+        },
+        "delete": {
+          "summary": "Eliminar una tarea",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": { "description": "Tarea eliminada" }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Task": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "completed": { "type": "boolean" }
+        }
+      }
+    }
+  }
+  
